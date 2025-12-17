@@ -1,7 +1,7 @@
 const http = require('http');
 
 class Khaosoi {
-    port = 3000
+    port = 3000 //Default port.
     app = null
     
     constructor(port) {
@@ -11,22 +11,23 @@ class Khaosoi {
 
     createApp() {
         this.app = http.createServer((req, res) => {
-            res.json = (data, statusCode = 200) => {
+            res.json = (data) => {
                 if (res.writableEnded) return;
 
-                res.statusCode = statusCode;
+                res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify(data));
             };
 
-            res.xml = (data, statusCode = 200) => {
+            res.xml = (data) => {
                 if (res.writableEnded) return;
 
-                res.statusCode = statusCode;
+                res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/xml');
                 res.end(data);
             };
 
+            //Handle methods dynamically
             const key = `${req.method}:${req.url}`;
             const handler = this.routes[key];
 
@@ -47,6 +48,7 @@ class Khaosoi {
         this.routes[`${method.toUpperCase()}:${path}`] = handler;
     }
 
+    //Handle expressjs style methods.
     get(path, handler) {
         this.routes[`GET:${path}`] = handler;
     }

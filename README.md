@@ -3,28 +3,24 @@
 Look like express.js but it's not!!
 </p>
 <h2>Usage:</h2>
-<code>
-const Lazy = require('./src/lazy')
+<pre>const Lazy = require('./src/lazy')
 const app = new Lazy(4000)
 app.createApp()
-</code>
+</pre>
 <h3>Handling GET request</h3>
-<code>
-app.on('/', 'get', (req,res) => {
+<pre>app.on('/', 'get', (req,res) => {
     res.end('Welcome to Lazy.js !!')
 })
-</code>
+</pre>
 <h3>Handling POST request</h3>
-<code>
-app.on('/', 'post', (req,res) => {
+<code>app.on('/', 'post', (req,res) => {
     res.end('This is POST !!')
 })
-</code>
+</pre>
 <h3>Responing with JSON Object</h3>
-<code>
-app.on('/json', 'get', (req,res) => {
+<pre>app.on('/json', 'get', (req,res) => {
     res.json({
         message: "Hello World!"
     })
 })
-</code>
+</pre>

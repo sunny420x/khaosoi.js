@@ -4,7 +4,7 @@ Look like express.js but it's not!!
 </p>
 <h2>Usage:</h2>
 <pre>const Lazy = require('./src/lazy')
-const app = new Lazy(4000)
+const app = new Lazy(4000) //Listening on port number 4000.
 app.createApp()
 </pre>
 <h3>Handling GET request</h3>

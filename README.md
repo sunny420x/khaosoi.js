@@ -24,3 +24,16 @@ app.createApp()
     })
 })
 </pre>
+<h3>Handling Express.js style!!</h3>
+<pre>app.get('/json', (req,res) => {
+    res.json({
+        message: "This is GET !!!"
+    })
+})
+</pre>
+<pre>app.post('/json', (req,res) => {
+    res.json({
+        message: "This is POST !!!"
+    })
+})
+</pre>

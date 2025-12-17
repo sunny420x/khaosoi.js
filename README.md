@@ -13,7 +13,7 @@ app.createApp()
 })
 </pre>
 <h3>Handling POST request</h3>
-<code>app.on('/', 'post', (req,res) => {
+<pre>app.on('/', 'post', (req,res) => {
     res.end('This is POST !!')
 })
 </pre>

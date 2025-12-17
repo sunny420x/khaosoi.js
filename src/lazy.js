@@ -11,7 +11,16 @@ class Lazy {
 
     createApp() {
         this.app = http.createServer((req, res) => {
-            const handler = this.routes[req.url];
+            res.json = (data, statusCode = 200) => {
+                if (res.writableEnded) return;
+
+                res.statusCode = statusCode;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(data));
+            };
+
+            const key = `${req.method}:${req.url}`;
+            const handler = this.routes[key];
 
             if (handler) {
                 handler(req, res);
@@ -26,8 +35,16 @@ class Lazy {
         })
     }
 
-    on(url, callback) {
-        this.routes[url] = callback;
+    on(path, method, handler) {
+        this.routes[`${method.toUpperCase()}:${path}`] = handler;
+    }
+
+    get(path, handler) {
+        this.routes[`GET:${path}`] = handler;
+    }
+
+    post(path, handler) {
+        this.routes[`POST:${path}`] = handler;
     }
 }
 

@@ -5,12 +5,15 @@ app.createApp()
 
 //Handling GET request.
 app.on('/', 'get', (req,res) => {
-    res.end('Welcome to Khaosoi.js 🍜 Made with love from developer to developer ❤️')
+    res.html(`<h1>Welcome to Khaosoi.js 🍜 Made with love from developer to developer ❤️</h1>`)
 })
 
 //Handling POST request.
 app.on('/', 'post', (req,res) => {
-    res.end('This is POST !!')
+    req.getBodyPayload((payload) => {
+        console.log(payload)
+    })
+    res.end()
 })
 
 //Responing JSON Object.

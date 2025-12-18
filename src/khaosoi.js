@@ -27,6 +27,33 @@ class Khaosoi {
                 res.end(data);
             };
 
+            res.html = (data) => {
+                if (res.writableEnded) return;
+
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'text/html');
+                res.setHeader('charset', 'utf-8')
+                res.end(data); 
+            }
+
+            req.getBodyPayload = (callback) => {
+                const chunks = []
+                req.on('data', chunk => chunks.push(chunk))
+                req.on('end', () => {
+                    const body = Buffer.concat(chunks).toString()
+                    const pairs = body.split("&")
+                    const result = []
+                    for (let i = 0; i < pairs.length; i++) {
+                        const [name, value] = pairs[i].split("=")
+                        result.push({
+                            name: decodeURIComponent(name),
+                            value: decodeURIComponent(value)
+                        })
+                    }
+                    callback(result)
+                })
+            }
+
             //Handle methods dynamically
             const key = `${req.method}:${req.url}`;
             const handler = this.routes[key];

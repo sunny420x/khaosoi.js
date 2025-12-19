@@ -23,9 +23,7 @@ app.createApp()
     const payload = await req.getBodyPayload()
     const message = payload.find(p => p.key === 'message')?.value
     const sender  = payload.find(p => p.key === 'sender')?.value
-
     console.log(`${sender}: ${message}`)
-
     res.end()
 })</pre>
 <h3>Handling PUT request</h3>

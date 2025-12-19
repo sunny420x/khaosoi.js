@@ -18,6 +18,16 @@ app.createApp()
     res.end('This is POST !!')
 })
 </pre>
+<h3>Accessing Body Payload</h3>
+<pre>app.on('/', 'post', async(req,res) => {
+    const payload = await req.getBodyPayload()
+    const message = payload.find(p => p.key === 'message')?.value
+    const sender  = payload.find(p => p.key === 'sender')?.value
+
+    console.log(`${sender}: ${message}`)
+
+    res.end()
+})</pre>
 <h3>Handling PUT request</h3>
 <pre>app.on('/', 'put', (req,res) => {
     res.end('This is PUT !!')
@@ -35,7 +45,7 @@ app.createApp()
     })
 })
 </pre>
-<h3>Handling Express.js style!!</h3>
+<h3>Bonus!! Handling Express.js styles!!</h3>
 <pre>app.get('/json', (req,res) => { ... })
 </pre>
 <pre>app.post('/json', (req,res) => { ... })
@@ -44,13 +54,3 @@ app.createApp()
 </pre>
 <pre>app.delete('/json', (req,res) => { ... })
 </pre>
-<h3>Accessing Body Payload</h3>
-<pre>app.on('/', 'post', async(req,res) => {
-    const payload = await req.getBodyPayload()
-    const message = payload.find(p => p.key === 'message')?.value
-    const sender  = payload.find(p => p.key === 'sender')?.value
-
-    console.log(`${sender}: ${message}`)
-
-    res.end()
-})</pre>

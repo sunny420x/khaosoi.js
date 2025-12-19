@@ -45,9 +45,12 @@ app.createApp()
 <pre>app.delete('/json', (req,res) => { ... })
 </pre>
 <h3>Accessing Body Payload</h3>
-<pre>app.on('/api/receive-data', 'post', (req,res) => {
-    req.getBodyPayload((payload) => {
-        ...
-    })
+<pre>app.on('/', 'post', async(req,res) => {
+    const payload = await req.getBodyPayload()
+    const message = payload.find(p => p.key === 'message')?.value
+    const sender  = payload.find(p => p.key === 'sender')?.value
+
+    console.log(`${sender}: ${message}`)
+
     res.end()
 })</pre>

@@ -20,8 +20,27 @@ app.on('/', 'post', async(req,res) => {
 })
 
 //Responing JSON Object.
-app.on('/json', 'get', (req,res) => {
-    res.json({
-        message: "Khaosoi Aroi mak! 🤪"
-    })
+app.on('/docs/getContent', 'get', (req,res) => {
+    res.json([
+    {
+        header: "💫 Handling GET request",
+        content: `app.on('/', 'get', (req,res) => { \n res.end('Welcome to Khaosoi.js !!') \n})`
+    },
+    {
+        header: "💫 Handling POST request",
+        content: `app.on('/', 'post', (req,res) => { \n res.end('This is POST !!') \n})`
+    },
+    {
+        header: "🍷 Accessing Body Payload",
+        content: `app.on('/', 'post', async(req,res) => { \n const payload = await req.getBodyPayload() \n const message = payload.find(p => p.key === 'message')?.value \n const sender  = payload.find(p => p.key === 'sender')?.value \n ... \n res.end() \n})`
+    },
+    {
+        header: "💫 Handling PUT request",
+        content: `app.on('/', 'put', (req,res) => { ... })`
+    },
+    {
+        header: "💫 Handling DELETE request",
+        content: `app.on('/', 'delete', (req,res) => { ... })`
+    },
+    ])
 })

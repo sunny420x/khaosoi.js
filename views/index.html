@@ -4,15 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <style>
+            pre {
+                background: #333;
+                color: #fff;
+                padding: 10px;
+            }
+        </style>
     </head>
     <body>
         <div class="container p-4">
             <div class="jumbotron">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-lg-5">
                         <img src="https://private-user-images.githubusercontent.com/68633850/527511354-349b0245-3eff-45e3-a14a-7ed3369d214a.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjYxMTQzNjAsIm5iZiI6MTc2NjExNDA2MCwicGF0aCI6Ii82ODYzMzg1MC81Mjc1MTEzNTQtMzQ5YjAyNDUtM2VmZi00NWUzLWExNGEtN2VkMzM2OWQyMTRhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjE5VDAzMTQyMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTFhYzMzMDRhY2MxYTQzYjA3YjQ0NjkyZTU0M2FmN2Y5NmMyZTRmZmJmMDk1YjcwOTMwYjIwNDQxZjcyZTE2MjgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.0V_H4Qfm_xELT-Oof7A66ZagQApS4kJEzZv_xoqJYVk" alt="Banner" width="50%" class="d-block mx-auto">
                     </div>
-                    <div class="col-7">
+                    <div class="col-lg-7">
                         <h1 class="display-4">Welcome to Khaosoi.js 🍜</h1>
                         <p class="lead">Made with love from developer to developer ❤️</p>
                         <p class="lead">
@@ -21,7 +28,30 @@
                     </div>
                 </div>
                 <hr class="my-4">
-                <p></p>
+                <div id="docs_content"></div>
+                <script>
+                    let docs;
+
+                    function getDocs() {
+                        fetch('/docs/getContent').then(res => {
+                            if(res.ok) {
+                                return res.json()
+                            }
+                        }).then(data => {
+                            docs = data
+                            applyDocs()
+                        })
+                    }
+
+                    function applyDocs() {
+                        let docs_content = document.getElementById('docs_content')
+                        docs.forEach(row => {
+                            docs_content.innerHTML += `<h2>${row.header}</h2><pre>${row.content}</pre>`
+                        });
+                    }
+
+                    getDocs()
+                </script>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
